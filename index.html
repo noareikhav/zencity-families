@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>הסיפורים של עירגוע | The Stories of Zencity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Secular+One&family=Fredoka:wght@400;500;600;700&family=Rubik:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --teal: #00A499;
+            --teal-light: #00C4B7;
+            --beige: #F5EDE6;
+            --coral: #FADBD8;
+            --blue: #D6EAF8;
+            --balloon-red: #E74C3C;
+            --balloon-red-dark: #C0392B;
+            --warm-white: #FFF9F5;
+            --text-dark: #2C3E50;
+            --text-soft: #5D6D7E;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --radius: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rubik', sans-serif;
+            background: linear-gradient(170deg, #F7F1EB 0%, var(--beige) 25%, #F5E1D0 50%, var(--coral) 75%, #D6E6D9 100%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Language toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            z-index: 100;
+            background: white;
+            border: 2px solid var(--teal);
+            border-radius: 30px;
+            padding: 8px 18px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--teal);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+
+        .lang-toggle:hover {
+            background: var(--teal);
+            color: white;
+        }
+
+        [dir="ltr"] .lang-toggle {
+            left: auto;
+            right: 16px;
+        }
+
+        /* Floating decorations */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.08;
+        }
+
+        .shape-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--teal);
+            top: 10%;
+            right: -50px;
+            animation: float-slow 20s ease-in-out infinite;
+        }
+
+        .shape-2 {
+            width: 200px;
+            height: 200px;
+            background: var(--balloon-red);
+            top: 50%;
+            left: -30px;
+            animation: float-slow 15s ease-in-out infinite reverse;
+        }
+
+        .shape-3 {
+            width: 250px;
+            height: 250px;
+            background: var(--teal);
+            bottom: 10%;
+            right: 20%;
+            animation: float-slow 18s ease-in-out infinite 3s;
+        }
+
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 60px 0 40px;
+        }
+
+        .hero-illustration {
+            width: 100%;
+            max-width: 700px;
+            border-radius: 24px;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+            margin-bottom: 28px;
+            animation: gentle-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes gentle-glow {
+            0%, 100% { box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12); }
+            50% { box-shadow: 0 8px 50px rgba(231, 76, 60, 0.15), 0 8px 40px rgba(0, 0, 0, 0.1); }
+        }
+
+        @keyframes balloon-float {
+            0%, 100% { transform: translateY(0) rotate(-2deg); }
+            25% { transform: translateY(-12px) rotate(1deg); }
+            50% { transform: translateY(-6px) rotate(-1deg); }
+            75% { transform: translateY(-14px) rotate(2deg); }
+        }
+
+        .hero-title-he {
+            font-family: 'Secular One', sans-serif;
+            font-size: clamp(28px, 6vw, 48px);
+            color: var(--text-dark);
+            margin-bottom: 4px;
+            line-height: 1.3;
+        }
+
+        .hero-title-en {
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(18px, 3.5vw, 28px);
+            font-weight: 500;
+            color: var(--teal);
+            margin-bottom: 24px;
+        }
+
+        .hero-subtitle {
+            font-size: 16px;
+            line-height: 1.8;
+            color: var(--text-soft);
+            max-width: 600px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        .hero-subtitle .he { display: block; margin-bottom: 8px; }
+        .hero-subtitle .en { display: block; font-style: italic; }
+
+        /* Zencity logo bar */
+        .logo-bar {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo-bar img {
+            height: 28px;
+            opacity: 0.5;
+        }
+
+        /* Section styling */
+        .section {
+            margin-bottom: 56px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .section-icon {
+            font-size: 36px;
+            margin-bottom: 8px;
+        }
+
+        .section-title-he {
+            font-family: 'Secular One', sans-serif;
+            font-size: clamp(22px, 4vw, 32px);
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .section-title-en {
+            font-family: 'Fredoka', sans-serif;
+            font-size: clamp(14px, 2.5vw, 20px);
+            font-weight: 500;
+            color: var(--teal);
+        }
+
+        /* Episode cards */
+        .episode-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            margin-bottom: 28px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .episode-header {
+            padding: 20px 24px 16px;
+        }
+
+        .episode-number {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--teal), var(--teal-light));
+            color: white;
+            font-family: 'Fredoka', sans-serif;
+            font-weight: 600;
+            font-size: 13px;
+            padding: 4px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+        }
+
+        .episode-title-he {
+            font-family: 'Secular One', sans-serif;
+            font-size: 20px;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .episode-title-en {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-soft);
+        }
+
+        .episode-video-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 24px 20px;
+        }
+
+        .video-slot {
+            position: relative;
+        }
+
+        .video-label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-soft);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .video-label .flag { font-size: 16px; }
+
+        .video-slot iframe,
+        .video-slot .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, #f0f0f0, #e8e8e8);
+        }
+
+        .video-placeholder {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-soft);
+            font-size: 13px;
+            font-family: 'Rubik', sans-serif;
+        }
+
+        /* Download cards grid */
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .download-card {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 28px 24px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .download-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .download-card .card-icon {
+            font-size: 44px;
+            margin-bottom: 12px;
+        }
+
+        .download-card .card-title-he {
+            font-family: 'Secular One', sans-serif;
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 2px;
+        }
+
+        .download-card .card-title-en {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-soft);
+            margin-bottom: 14px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--teal), var(--teal-light));
+            color: white;
+            font-family: 'Rubik', sans-serif;
+            font-weight: 500;
+            font-size: 14px;
+            padding: 10px 24px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .download-btn:hover {
+            opacity: 0.9;
+        }
+
+        .download-btn-coral {
+            background: linear-gradient(135deg, #E74C3C, #F1948A);
+        }
+
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 48px 0 64px;
+        }
+
+        .footer-balloon {
+            font-size: 40px;
+            margin-bottom: 12px;
+            animation: balloon-float 5s ease-in-out infinite;
+        }
+
+        .footer-text-he {
+            font-family: 'Secular One', sans-serif;
+            font-size: 22px;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .footer-text-en {
+            font-family: 'Fredoka', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--teal);
+            margin-bottom: 24px;
+        }
+
+        .footer-logo {
+            opacity: 0.3;
+            height: 20px;
+        }
+
+        /* Divider */
+        .divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin: 40px 0;
+            color: var(--teal);
+            opacity: 0.3;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            height: 1px;
+            width: 60px;
+            background: currentColor;
+        }
+
+        /* LTR overrides */
+        [dir="ltr"] .hero-subtitle .he { display: none; }
+        [dir="ltr"] .hero-subtitle .en { font-style: normal; }
+        [dir="ltr"] .section-title-he { display: none; }
+        [dir="ltr"] .episode-title-he { display: none; }
+        [dir="ltr"] .download-card .card-title-he { display: none; }
+        [dir="ltr"] .hero-title-he { display: none; }
+        [dir="ltr"] .hero-title-en { font-size: clamp(28px, 6vw, 48px); color: var(--text-dark); }
+        [dir="ltr"] .section-title-en { font-size: clamp(22px, 4vw, 32px); color: var(--text-dark); }
+        [dir="ltr"] .episode-title-en { font-size: 20px; color: var(--text-dark); }
+        [dir="ltr"] .download-card .card-title-en { font-size: 18px; color: var(--text-dark); margin-bottom: 14px; }
+        [dir="ltr"] .footer-text-he { display: none; }
+        [dir="ltr"] .footer-text-en { font-size: 22px; color: var(--text-dark); }
+
+        [dir="rtl"] .hero-subtitle .en { font-size: 14px; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero { padding: 70px 0 32px; }
+            .episode-video-row {
+                grid-template-columns: 1fr;
+            }
+            .container { padding: 0 16px; }
+        }
+
+        /* Parent note styling */
+        .parent-note {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 20px 24px;
+            max-width: 600px;
+            margin: 24px auto 0;
+            border: 1px solid rgba(0, 164, 153, 0.1);
+        }
+
+        .parent-note p {
+            font-size: 14px;
+            line-height: 1.7;
+            color: var(--text-soft);
+        }
+
+        .parent-note .he { margin-bottom: 8px; }
+        .parent-note .en { font-style: italic; font-size: 13px; }
+
+        [dir="ltr"] .parent-note .he { display: none; }
+        [dir="ltr"] .parent-note .en { font-style: normal; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <button class="lang-toggle" onclick="toggleLang()" aria-label="Switch language">
+        <span class="toggle-label">English</span>
+    </button>
+
+    <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+
+        <!-- Hero -->
+        <section class="hero">
+            <img src="hero-illustration.png" alt="ילדי עירגוע מחזיקים בלון אדום | The children of Zencity holding a red balloon" class="hero-illustration">
+            <h1 class="hero-title-he">הסיפורים של עירגוע</h1>
+            <h1 class="hero-title-en">The Stories of Zencity</h1>
+            <p class="hero-subtitle">
+                <span class="he">סיפורים, פעילויות, וקצת קסם — מאיתנו אליכם.</span>
+                <span class="en">Stories, activities, and a little bit of magic — from us to you.</span>
+            </p>
+            <div class="parent-note">
+                <p class="he">הכנו את החוברת הזו עם המון אהבה. יש פה סיפורים מוקלטים לקטנטנים, חוברת פעילויות לגדולים יותר, וגם את הספר להורדה. תהנו — מקווים לימים שקטים יותר. 💛</p>
+                <p class="en">We put this together with lots of love. You'll find recorded stories for the little ones, activity booklets for older kids, and the book to download. Enjoy — hoping for quieter days soon. 💛</p>
+            </div>
+        </section>
+
+        <!-- Story Time Videos -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📖</div>
+                <h2 class="section-title-he">שעת סיפור</h2>
+                <h2 class="section-title-en">Story Time</h2>
+            </div>
+
+            <!-- Episode 1 -->
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-number">1</div>
+                    <h3 class="episode-title-he">הבלון הגדול של טומי</h3>
+                    <h3 class="episode-title-en">Tommy's Big Balloon</h3>
+                </div>
+                <div class="episode-video-row">
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇮🇱</span> עברית</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇬🇧</span> English</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 2 -->
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-number">2</div>
+                    <h3 class="episode-title-he">המסע הגדול ברחובות העיר</h3>
+                    <h3 class="episode-title-en">The Big Adventure Through Town</h3>
+                </div>
+                <div class="episode-video-row">
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇮🇱</span> עברית</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇬🇧</span> English</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 3 -->
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-number">3</div>
+                    <h3 class="episode-title-he">הבעיה הגדולה (והפתרון הקטן)</h3>
+                    <h3 class="episode-title-en">The Big Problem (and the Little Solution)</h3>
+                </div>
+                <div class="episode-video-row">
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇮🇱</span> עברית</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇬🇧</span> English</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 4 -->
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-number">4</div>
+                    <h3 class="episode-title-he">המסיבה הכי גדולה בעירגוע</h3>
+                    <h3 class="episode-title-en">The Biggest Party in Zencity</h3>
+                </div>
+                <div class="episode-video-row">
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇮🇱</span> עברית</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇬🇧</span> English</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Episode 5 -->
+            <div class="episode-card">
+                <div class="episode-header">
+                    <div class="episode-number">5</div>
+                    <h3 class="episode-title-he">הסוד של הבלון</h3>
+                    <h3 class="episode-title-en">The Secret of the Balloon</h3>
+                </div>
+                <div class="episode-video-row">
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇮🇱</span> עברית</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                    <div class="video-slot">
+                        <div class="video-label"><span class="flag">🇬🇧</span> English</div>
+                        <iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider">🎈</div>
+
+        <!-- Picture Books -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">📚</div>
+                <h2 class="section-title-he">הספר</h2>
+                <h2 class="section-title-en">The Book</h2>
+            </div>
+
+            <div class="download-grid">
+                <a href="https://drive.google.com/uc?export=download&id=14SGIYTm2MKikCnkxqJF9vLZtm2dZfU3S" class="download-card" target="_blank">
+                    <div class="card-icon">🇮🇱</div>
+                    <div class="card-title-he">הספר בעברית</div>
+                    <div class="card-title-en">Hebrew Edition</div>
+                    <span class="download-btn">הורדה · Download PDF</span>
+                </a>
+                <a href="https://drive.google.com/uc?export=download&id=1xhWOUXBR1FSKCmpP2CzaD3lYnBnzoLX9" class="download-card" target="_blank">
+                    <div class="card-icon">🇬🇧</div>
+                    <div class="card-title-he">הספר באנגלית</div>
+                    <div class="card-title-en">English Edition</div>
+                    <span class="download-btn">הורדה · Download PDF</span>
+                </a>
+            </div>
+        </section>
+
+        <div class="divider">✨</div>
+
+        <!-- Activities -->
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon">🎨</div>
+                <h2 class="section-title-he">חוברת פעילויות</h2>
+                <h2 class="section-title-en">Activity Booklet</h2>
+            </div>
+
+            <div class="download-grid">
+                <a href="#" class="download-card" style="max-width: 400px; margin: 0 auto;">
+                    <div class="card-icon">🧩</div>
+                    <div class="card-title-he">חוברת הפעילויות של עירגוע</div>
+                    <div class="card-title-en">The Zencity Activity Booklet</div>
+                    <p style="font-size: 13px; color: var(--text-soft); margin-bottom: 16px; line-height: 1.6;">
+                        <span class="he">תשבצים, חידות, ופעילויות מוח — להעביר את הזמן בכיף</span>
+                        <span class="en">Crosswords, brain teasers, and puzzles — a fun way to pass the time</span>
+                    </p>
+                    <span class="download-btn download-btn-coral">הורדה · Download PDF</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-balloon">🎈</div>
+            <p class="footer-text-he">עם אהבה, מצוות זנסיטי</p>
+            <p class="footer-text-en">With love, from the Zencity team</p>
+            <div style="margin-top: 16px;">
+                <svg class="footer-logo" viewBox="0 0 120 24" fill="var(--teal)">
+                    <text x="0" y="18" font-family="Fredoka, sans-serif" font-size="18" font-weight="600" fill="var(--teal)" opacity="0.4">zencity</text>
+                </svg>
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        function toggleLang() {
+            const html = document.documentElement;
+            const btn = document.querySelector('.toggle-label');
+            if (html.dir === 'rtl') {
+                html.dir = 'ltr';
+                html.lang = 'en';
+                btn.textContent = 'עברית';
+            } else {
+                html.dir = 'rtl';
+                html.lang = 'he';
+                btn.textContent = 'English';
+            }
+        }
+    </script>
+
+</body>
+</html>
